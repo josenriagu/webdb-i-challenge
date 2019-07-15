@@ -40,6 +40,16 @@ router.put('/:id', validateAccount, validateId, async (req, res) => {
    }
 })
 
+router.delete('/:id', validateId, async (req, res) => {
+   try {
+      await Accounts.remove(req.params.id)
+      const accounts = await Accounts.get();
+      res.status(200).json(accounts)
+   } catch (error) {
+      res.status(500).json('Oops! The aliens crushed the cables! Help us fix the mess from your side, while we work from over here')
+   }
+})
+
 // middleware
 async function validateId(req, res, next) {
    const id = Number(req.params.id);

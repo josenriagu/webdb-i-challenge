@@ -29,6 +29,17 @@ router.post('/', validateAccount, async (req, res) => {
       res.status(500).json('Oops! The aliens crushed the cables! Help us fix the mess from your side, while we work from over here')
    }
 })
+
+router.put('/:id', validateAccount, validateId, async (req, res) => {
+   try {
+      await Accounts.update(req.params.id, req.body);
+      const account = await Accounts.getById(req.params.id);
+      res.status(200).json(account);
+   } catch (error) {
+      res.status(500).json('Oops! The aliens crushed the cables! Help us fix the mess from your side, while we work from over here')
+   }
+})
+
 // middleware
 async function validateId(req, res, next) {
    const id = Number(req.params.id);
@@ -38,7 +49,7 @@ async function validateId(req, res, next) {
          req.account = account;
          next();
       } else {
-         res.status(400).json("Aww, the account with that id has gone to the BlackHole")
+         res.status(400).json("Aww, the account with that id might have gone into the BlackHole")
       }
    } else {
       res.status(400).json("That id doesn't look legit!")

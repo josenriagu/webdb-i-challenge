@@ -45,6 +45,9 @@ WHERE PostalCode = "111";
 SELECT DISTINCT City `specifies that row values returned must not be repeated`
 FROM Customers;
 
+SELECT COUNT (DISTINCT City) `counts and returns the total number of distinct cities`
+FROM Customers;
+
 ## (Stretch) Find all suppliers who have names longer than 20 characters. You can use `length(SupplierName)` to get the length of the name
 
 SELECT SupplierName
